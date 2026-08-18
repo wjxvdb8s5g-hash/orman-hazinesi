@@ -8,7 +8,7 @@ enum PlayerState { idle, running, jumping, hurt }
 
 /// Oyuncu karakteri
 class PlayerCharacter extends PositionComponent
-    with HasGameRef, CollisionCallbacks {
+    with HasGameRef, CollisionCallbacks, PlayerComponent {
   final VoidCallback onDeath;
 
   // Fizik

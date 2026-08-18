@@ -69,13 +69,13 @@ class _GameScreenState extends State<GameScreen> {
       context,
       MaterialPageRoute(builder: (_) => const LevelCompleteScreen()),
     ).then((_) {
-      // Bir sonraki leveli yükle
+      if (!mounted) return;
       final gameState = context.read<GameState>();
+      // nextLevel was already called in LevelCompleteScreen for non-last levels
       if (gameState.currentLevel <= Level.levels.length) {
         setState(() => _initGame());
-      } else {
-        _onGameOver();
       }
+      // If last level was completed, LevelCompleteScreen already handles navigation
     });
   }
 

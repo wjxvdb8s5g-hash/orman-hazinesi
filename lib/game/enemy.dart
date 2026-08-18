@@ -43,11 +43,8 @@ class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks, Harmf
   }
 
   PositionComponent? _findPlayer() {
-    // Find the first non-enemy, non-platform component that looks like a player
     try {
-      return gameRef.children
-          .whereType<PositionComponent>()
-          .firstWhere((c) => c.runtimeType.toString() == 'PlayerCharacter');
+      return gameRef.children.whereType<PlayerComponent>().first as PositionComponent;
     } catch (_) {
       return null;
     }

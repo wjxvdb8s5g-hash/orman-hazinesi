@@ -12,8 +12,6 @@ class GamePlatform extends PositionComponent with HasGameRef, CollisionCallbacks
   final Color color;
 
   double _moveDir = 1;
-  double _moveTimer = 0;
-  static const double _moveDuration = 2.0;
   final double _startX;
   static const double _moveDistance = 120;
 
@@ -43,7 +41,6 @@ class GamePlatform extends PositionComponent with HasGameRef, CollisionCallbacks
     super.update(dt);
 
     if (type == PlatformType.moving && moveSpeed > 0) {
-      _moveTimer += dt;
       position.x += _moveDir * moveSpeed * dt;
       if ((position.x - _startX).abs() >= _moveDistance) {
         _moveDir *= -1;

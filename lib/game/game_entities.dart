@@ -5,3 +5,6 @@ mixin HarmfulComponent {}
 mixin CollectibleComponent {
   void collect();
 }
+
+/// Marker mixin for the player character component
+mixin PlayerComponent {}
