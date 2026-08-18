@@ -1,6 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
-import 'dart:math';
 
 /// Akıllı düşman yapay zekası
 class AIBrain {

@@ -184,6 +184,10 @@ class LevelManager {
       final c = Collectible(
         position: Vector2(positions[i][0], h - positions[i][1]),
         type: type,
+        onCollected: (val, self) {
+          game.collectibles.remove(self);
+          game.treasureCollected(val);
+        },
       );
       game.collectibles.add(c);
       game.add(c);

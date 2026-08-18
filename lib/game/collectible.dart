@@ -2,15 +2,16 @@ import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'game_controller.dart';
+import 'game_entities.dart';
 
 enum CollectibleType { coin, gem, star }
 
 /// Toplanabilir nesne (hazine, altın, mücevher)
 class Collectible extends PositionComponent
-    with HasGameRef<GameController>, CollisionCallbacks {
+    with HasGameRef, CollisionCallbacks, CollectibleComponent {
   final CollectibleType type;
   final int value;
+  final void Function(int value, Collectible self) onCollected;
 
   bool _collected = false;
   double _floatTimer = 0;
@@ -20,6 +21,7 @@ class Collectible extends PositionComponent
 
   Collectible({
     required Vector2 position,
+    required this.onCollected,
     this.type = CollectibleType.coin,
   })  : value = _valueFor(type),
         super(
@@ -59,8 +61,7 @@ class Collectible extends PositionComponent
   void collect() {
     if (_collected) return;
     _collected = true;
-    gameRef.treasureCollected(value);
-    gameRef.collectibles.remove(this);
+    onCollected(value, this);
     removeFromParent();
   }
 

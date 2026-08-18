@@ -2,12 +2,12 @@ import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'package:flutter/material.dart';
 import 'ai_brain.dart';
-import 'player.dart';
+import 'game_entities.dart';
 
 enum EnemyType { normal, fast, boss }
 
 /// Düşman karakteri
-class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks {
+class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks, HarmfulComponent {
   final EnemyType type;
   final double speed;
   late AIBrain _brain;
@@ -42,9 +42,12 @@ class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks {
     add(RectangleHitbox());
   }
 
-  PlayerCharacter? _findPlayer() {
+  PositionComponent? _findPlayer() {
+    // Find the first non-enemy, non-platform component that looks like a player
     try {
-      return gameRef.children.whereType<PlayerCharacter>().first;
+      return gameRef.children
+          .whereType<PositionComponent>()
+          .firstWhere((c) => c.runtimeType.toString() == 'PlayerCharacter');
     } catch (_) {
       return null;
     }

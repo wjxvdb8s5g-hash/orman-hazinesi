@@ -1,10 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 import 'platform.dart' as game_platform;
-import 'collectible.dart';
-import 'enemy.dart';
+import 'game_entities.dart';
 
 enum PlayerState { idle, running, jumping, hurt }
 
@@ -102,11 +100,11 @@ class PlayerCharacter extends PositionComponent
 
     if (other is game_platform.GamePlatform) {
       _handlePlatformCollision(other, intersectionPoints);
-    } else if (other is Enemy && !_isHurt) {
+    } else if (other is HarmfulComponent && !_isHurt) {
       _isHurt = true;
       _hurtTimer = _hurtDuration;
       onDeath();
-    } else if (other is Collectible) {
+    } else if (other is CollectibleComponent) {
       other.collect();
     }
   }
