@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'player.dart';
 import 'enemy.dart';
 import 'collectible.dart';
@@ -30,8 +29,6 @@ class GameController extends FlameGame
   // Kamera offset
   double _cameraX = 0;
   static const double _worldWidth = 3200;
-  static const double _worldHeight = 600;
-
   GameController({
     required this.gameState,
     required this.levelConfig,

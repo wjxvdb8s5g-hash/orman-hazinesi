@@ -99,19 +99,17 @@ class PlayerCharacter extends PositionComponent
     super.onCollisionStart(intersectionPoints, other);
 
     if (other is game_platform.GamePlatform) {
-      _handlePlatformCollision(other, intersectionPoints);
+      _handlePlatformCollision(other);
     } else if (other is HarmfulComponent && !_isHurt) {
       _isHurt = true;
       _hurtTimer = _hurtDuration;
       onDeath();
     } else if (other is CollectibleComponent) {
-      other.collect();
+      (other as CollectibleComponent).collect();
     }
   }
 
-  void _handlePlatformCollision(
-      game_platform.GamePlatform platform, Set<Vector2> points) {
-    final avgY = points.map((p) => p.y).reduce((a, b) => a + b) / points.length;
+  void _handlePlatformCollision(game_platform.GamePlatform platform) {
     final playerBottom = position.y;
     final platformTop = platform.position.y;
 
@@ -154,7 +152,7 @@ class PlayerCharacter extends PositionComponent
     final bodyPaint = Paint()
       ..color = const Color(0xFF4CAF50)
       ..style = PaintingStyle.fill;
-    canvas.drawRoundRect(
+    canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(8, 20, 24, 24),
         const Radius.circular(4),
@@ -192,14 +190,14 @@ class PlayerCharacter extends PositionComponent
 
     if (_state == PlayerState.running) {
       final legOffset = _animFrame % 2 == 0 ? 4.0 : -4.0;
-      canvas.drawRoundRect(
+      canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(10, 44, 9, 10 + legOffset),
           const Radius.circular(3),
         ),
         legPaint,
       );
-      canvas.drawRoundRect(
+      canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(21, 44, 9, 10 - legOffset),
           const Radius.circular(3),
@@ -207,14 +205,14 @@ class PlayerCharacter extends PositionComponent
         legPaint,
       );
     } else {
-      canvas.drawRoundRect(
+      canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(10, 44, 9, 10),
           const Radius.circular(3),
         ),
         legPaint,
       );
-      canvas.drawRoundRect(
+      canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(21, 44, 9, 10),
           const Radius.circular(3),

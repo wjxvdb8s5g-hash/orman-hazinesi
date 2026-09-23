@@ -66,7 +66,7 @@ class GamePlatform extends PositionComponent with HasGameRef, CollisionCallbacks
   void _drawPlatform(Canvas canvas) {
     // Platform gövdesi
     final paint = Paint()..color = color;
-    canvas.drawRoundRect(
+    canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, size.x, size.y),
         const Radius.circular(6),
@@ -77,7 +77,7 @@ class GamePlatform extends PositionComponent with HasGameRef, CollisionCallbacks
     // Üst dekorasyon (çimen)
     if (color == const Color(0xFF5D4037) || color == const Color(0xFF388E3C)) {
       final grassPaint = Paint()..color = const Color(0xFF66BB6A);
-      canvas.drawRoundRect(
+      canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(0, 0, size.x, 8),
           const Radius.circular(4),
@@ -92,7 +92,7 @@ class GamePlatform extends PositionComponent with HasGameRef, CollisionCallbacks
         ..color = Colors.yellow.withOpacity(0.3)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2;
-      canvas.drawRoundRect(
+      canvas.drawRRect(
         RRect.fromRectAndRadius(
           Rect.fromLTWH(1, 1, size.x - 2, size.y - 2),
           const Radius.circular(5),

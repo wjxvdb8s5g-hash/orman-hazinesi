@@ -6,14 +6,11 @@ class AIBrain {
   final double moveSpeed;
 
   // AI durumu
-  bool _isPatrolling = true;
   bool _isChasing = false;
   double _patrolDirection = 1; // 1 = sağ, -1 = sol
   double _patrolTimer = 0;
   static const double _patrolChangeInterval = 2.5;
   static const double _chaseRange = 280;
-  static const double _attackRange = 50;
-
   // Engel algılama
   double _stuckTimer = 0;
   double _lastX = 0;
@@ -38,10 +35,8 @@ class AIBrain {
     // Takip menzili
     if (distance < _chaseRange) {
       _isChasing = true;
-      _isPatrolling = false;
     } else {
       _isChasing = false;
-      _isPatrolling = true;
     }
 
     if (_isChasing) {

@@ -14,8 +14,6 @@ class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks, Harmf
 
   Vector2 _velocity = Vector2.zero();
   static const double _gravity = 980;
-  bool _isOnGround = false;
-
   double _animTimer = 0;
   int _animFrame = 0;
 
@@ -65,8 +63,6 @@ class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks, Harmf
     if (_velocity.y > 700) _velocity.y = 700;
 
     position += _velocity * dt;
-    _isOnGround = false;
-
     // Ekrandan çıkmasını engelle
     if (position.x < size.x / 2) {
       position.x = size.x / 2;
@@ -86,7 +82,6 @@ class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks, Harmf
   }
 
   void landOnGround() {
-    _isOnGround = true;
     _velocity.y = 0;
   }
 
@@ -118,7 +113,7 @@ class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks, Harmf
 
     // Gövde
     final bodyPaint = Paint()..color = bodyColor;
-    canvas.drawRoundRect(
+    canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(w * 0.1, h * 0.3, w * 0.8, h * 0.55),
         const Radius.circular(6),
@@ -154,14 +149,14 @@ class Enemy extends PositionComponent with HasGameRef, CollisionCallbacks, Harmf
     // Bacaklar - yürüyüş animasyonu
     final legPaint = Paint()..color = bodyColor.withOpacity(0.85);
     final legOffset = _animFrame % 2 == 0 ? 3.0 : -3.0;
-    canvas.drawRoundRect(
+    canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(w * 0.2, h * 0.82, w * 0.22, h * 0.16 + legOffset),
         const Radius.circular(4),
       ),
       legPaint,
     );
-    canvas.drawRoundRect(
+    canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(w * 0.58, h * 0.82, w * 0.22, h * 0.16 - legOffset),
         const Radius.circular(4),

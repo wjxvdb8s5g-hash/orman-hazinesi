@@ -10,8 +10,6 @@ import '../models/level.dart';
 /// Level düzenini yükleyen yönetici
 class LevelManager {
   final GameController game;
-  final Random _rng = Random();
-
   LevelManager(this.game);
 
   Future<void> loadLevel(Level level) async {
