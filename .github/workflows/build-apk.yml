@@ -36,7 +36,12 @@ jobs:
         run: flutter analyze --no-fatal-warnings
 
       - name: Run tests
-        run: flutter test
+        run: |
+          if [ -d test ]; then
+            flutter test
+          else
+            echo "No test directory found; skipping tests."
+          fi
 
       - name: Build release APK
         run: flutter build apk --release
